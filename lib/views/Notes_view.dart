@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/widgets/customNoteitem.dart';
+import 'package:note_app/constant/constantvalue.dart';
+
 import 'package:note_app/widgets/notebodyview.dart';
 import 'package:note_app/widgets/sheetview.dart';
 
@@ -10,6 +11,7 @@ class NotesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: kprimarycolor,
         onPressed: () {
           showModalBottomSheet(
               isScrollControlled: true,
@@ -18,7 +20,10 @@ class NotesView extends StatelessWidget {
                 return const Sheetview();
               });
         },
-        child: Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          color: Colors.black,
+        ),
       ),
       appBar: AppBar(
         title: const Text(
