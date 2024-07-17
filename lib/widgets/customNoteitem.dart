@@ -8,7 +8,6 @@ class CustomNoteitem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Container(
-        height: 220,
         padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
         decoration: BoxDecoration(
             color: Colors.amber, borderRadius: BorderRadius.circular(16)),
@@ -16,9 +15,12 @@ class CustomNoteitem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             ListTile(
-              title: const Text(
-                'Flutter Tips',
-                style: TextStyle(fontSize: 30, color: Colors.black),
+              title: const Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  'Flutter Tips',
+                  style: TextStyle(fontSize: 30, color: Colors.black),
+                ),
               ),
               subtitle: const Text(
                 'this is a important Notes ',
@@ -32,8 +34,8 @@ class CustomNoteitem extends StatelessWidget {
                     color: Colors.black,
                   )),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 24, right: 16),
+            const Padding(
+              padding: EdgeInsets.only(top: 24, right: 16),
               child: Text(
                 '12May , 2021',
                 style: TextStyle(fontSize: 22, color: Colors.black38),

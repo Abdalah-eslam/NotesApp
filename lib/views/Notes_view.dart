@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/widgets/customNoteitem.dart';
+import 'package:note_app/widgets/notebodyview.dart';
+import 'package:note_app/widgets/sheetview.dart';
 
 class NotesView extends StatelessWidget {
   const NotesView({super.key});
@@ -7,6 +9,17 @@ class NotesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (builder) {
+                return const Sheetview();
+              });
+        },
+        child: Icon(Icons.add),
+      ),
       appBar: AppBar(
         title: const Text(
           'Notes',
@@ -34,7 +47,7 @@ class NotesView extends StatelessWidget {
           )
         ],
       ),
-      body: const CustomNoteitem(),
+      body: const notebodyview(),
     );
   }
 }
