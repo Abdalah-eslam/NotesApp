@@ -15,28 +15,27 @@ class Sheetview extends StatelessWidget {
         top: 8.0,
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
-      child: SingleChildScrollView(
-        child: Container(
-          child: const Column(
-            children: [
-              SizedBox(
-                height: 32,
-              ),
-              Customtextfeild(
-                hint: 'title',
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Customtextfeild(
-                hint: 'content',
-              ),
-              SizedBox(
-                height: 100,
-              ),
-              CustomButton(),
-            ],
-          ),
+      child: const SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: 32,
+            ),
+            Customtextfeild(
+              hint: 'title',
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            Customtextfeild(
+              hint: 'content',
+              maxLines: 5,
+            ),
+            SizedBox(
+              height: 100,
+            ),
+            CustomButton(),
+          ],
         ),
       ),
     );

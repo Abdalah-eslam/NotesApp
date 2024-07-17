@@ -2,12 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:note_app/constant/constantvalue.dart';
 
 class Customtextfeild extends StatelessWidget {
-  const Customtextfeild({super.key, required this.hint});
+  const Customtextfeild({
+    super.key,
+    required this.hint,
+    this.maxLines = 1, // Default value for maxLines
+  });
+
   final String hint;
-  // final int maxlines;
+  final int maxLines;
+
   @override
   Widget build(BuildContext context) {
     return TextField(
+      maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hint,
         hintStyle: const TextStyle(
