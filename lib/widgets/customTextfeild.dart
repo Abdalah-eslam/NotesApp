@@ -3,17 +3,26 @@ import 'package:note_app/constant/constantvalue.dart';
 
 class Customtextfeild extends StatelessWidget {
   const Customtextfeild({
+    this.onsave,
     super.key,
     required this.hint,
     this.maxLines = 1, // Default value for maxLines
   });
-
+  final void Function(String?)? onsave;
   final String hint;
   final int maxLines;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      onSaved: onsave,
+      validator: (value) {
+        if (value?.isEmpty ?? true) {
+          return 'This feild is required';
+        } else {
+          return null;
+        }
+      },
       maxLines: maxLines,
       decoration: InputDecoration(
         hintText: hint,
