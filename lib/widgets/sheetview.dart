@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:note_app/Cubits/addNote_cubit/addnote_cubit.dart';
+import 'package:note_app/Cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/widgets/formview.dart';
 
 class Sheetview extends StatelessWidget {
@@ -30,7 +30,7 @@ class Sheetview extends StatelessWidget {
           builder: (context, state) {
             return AbsorbPointer(
               absorbing: state is AddnoteLoading ? true : false,
-              child: SingleChildScrollView(
+              child: const SingleChildScrollView(
                 child: Formview(),
               ),
             );

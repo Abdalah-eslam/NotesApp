@@ -6,8 +6,10 @@ class Customtextfeild extends StatelessWidget {
     this.onsave,
     super.key,
     required this.hint,
-    this.maxLines = 1, // Default value for maxLines
+    this.maxLines = 1,
+    this.onChanged, // Default value for maxLines
   });
+  final Function(String)? onChanged;
   final void Function(String?)? onsave;
   final String hint;
   final int maxLines;
@@ -15,6 +17,7 @@ class Customtextfeild extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
       onSaved: onsave,
       validator: (value) {
         if (value?.isEmpty ?? true) {

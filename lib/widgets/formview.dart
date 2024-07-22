@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:note_app/Cubits/addNote_cubit/addnote_cubit.dart';
+import 'package:note_app/Cubits/notes_cubit/notes_cubit.dart';
 import 'package:note_app/Models/notemodel.dart';
+
+import 'package:note_app/widgets/customListColorspicker.dart';
 import 'package:note_app/widgets/customTextfeild.dart';
 import 'package:note_app/widgets/custombutton.dart';
 
@@ -42,7 +46,11 @@ class _FormviewState extends State<Formview> {
             maxLines: 5,
           ),
           const SizedBox(
-            height: 100,
+            height: 16,
+          ),
+          const ColorsListview(),
+          const SizedBox(
+            height: 16,
           ),
           BlocBuilder<AddnoteCubit, AddnoteState>(
             builder: (context, state) {
@@ -50,13 +58,16 @@ class _FormviewState extends State<Formview> {
                 isloading: state is AddnoteLoading ? true : false,
                 ontap: () {
                   if (formkey.currentState!.validate()) {
+                    var formattedDate =
+                        DateFormat('dd-mm-yyyy').format(DateTime.now());
                     formkey.currentState!.save();
                     Notemodel note = Notemodel(
                         title: title!,
                         subtitle: subtitle!,
-                        date: DateTime.now().toString(),
+                        date: formattedDate.toString(),
                         color: Colors.black.value);
                     BlocProvider.of<AddnoteCubit>(context).addnote(note);
+                    BlocProvider.of<NotesCubit>(context).fetchAllnotes();
                   } else {
                     autovalidateMode = AutovalidateMode.always;
                     setState(() {});

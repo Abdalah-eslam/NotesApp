@@ -1,9 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/Cubits/notes_cubit/notes_cubit.dart';
+import 'package:note_app/Models/notemodel.dart';
 import 'package:note_app/widgets/customTextfeild.dart';
 
-class Editnoteview extends StatelessWidget {
-  const Editnoteview({super.key});
+class Editnoteview extends StatefulWidget {
+  const Editnoteview({super.key, required this.note});
+  final Notemodel note;
 
+  @override
+  State<Editnoteview> createState() => _EditnoteviewState();
+}
+
+class _EditnoteviewState extends State<Editnoteview> {
+  String? title, subtitle;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +33,13 @@ class Editnoteview extends StatelessWidget {
                   borderRadius: BorderRadius.circular(16)),
               child: Center(
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    widget.note.title = title ?? widget.note.title;
+                    widget.note.subtitle = subtitle ?? widget.note.subtitle;
+                    widget.note.save();
+                    BlocProvider.of<NotesCubit>(context).fetchAllnotes();
+                    Navigator.pop(context);
+                  },
                   icon: const Icon(
                     Icons.check,
                     size: 30,
@@ -34,17 +50,25 @@ class Editnoteview extends StatelessWidget {
           )
         ],
       ),
-      body: const Column(
+      body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 50,
           ),
-          Customtextfeild(hint: 'Title'),
-          SizedBox(
+          Customtextfeild(
+            onChanged: (value) {
+              title = value;
+            },
+            hint: widget.note.title,
+          ),
+          const SizedBox(
             height: 16,
           ),
           Customtextfeild(
-            hint: 'Content',
+            onChanged: (p0) {
+              subtitle = p0;
+            },
+            hint: widget.note.subtitle,
             maxLines: 5,
           ),
         ],

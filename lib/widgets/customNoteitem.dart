@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:note_app/Cubits/notes_cubit/notes_cubit.dart';
+import 'package:note_app/Models/notemodel.dart';
 import 'package:note_app/views/editNoteview.dart';
 
 class CustomNoteitem extends StatelessWidget {
-  const CustomNoteitem({super.key});
-
+  const CustomNoteitem({super.key, required this.note});
+  final Notemodel note;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -13,42 +16,44 @@ class CustomNoteitem extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (builder) {
-              return const Editnoteview();
+              return Editnoteview(note: note);
             }),
           );
         },
         child: Container(
           padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
-          decoration: BoxDecoration(
-              color: Colors.amber, borderRadius: BorderRadius.circular(16)),
+          decoration: BoxDecoration(color: Color(note.color)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               ListTile(
-                title: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.0),
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(
-                    'Flutter Tips',
-                    style: TextStyle(fontSize: 30, color: Colors.black),
+                    note.title,
+                    style: const TextStyle(fontSize: 30, color: Colors.black),
                   ),
                 ),
-                subtitle: const Text(
-                  'this is a important Notes ',
-                  style: TextStyle(fontSize: 24, color: Colors.black38),
+                subtitle: Text(
+                  note.subtitle,
+                  style: const TextStyle(fontSize: 24, color: Colors.black38),
                 ),
                 trailing: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      note.delete();
+                      BlocProvider.of<NotesCubit>(context).fetchAllnotes();
+                    },
                     icon: const Icon(
                       Icons.delete_sweep,
                       size: 30,
                       color: Colors.black,
                     )),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 24, right: 16),
+              Padding(
+                padding: const EdgeInsets.only(top: 24, right: 16),
                 child: Text(
-                  '12May , 2021',
-                  style: TextStyle(fontSize: 22, color: Colors.black38),
+                  note.date,
+                  style: const TextStyle(fontSize: 22, color: Colors.black38),
                 ),
               )
             ],
