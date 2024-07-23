@@ -7,6 +7,7 @@ import 'package:note_app/views/editNoteview.dart';
 class CustomNoteitem extends StatelessWidget {
   const CustomNoteitem({super.key, required this.note});
   final Notemodel note;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,7 +23,9 @@ class CustomNoteitem extends StatelessWidget {
         },
         child: Container(
           padding: const EdgeInsets.only(left: 16, top: 16, bottom: 16),
-          decoration: BoxDecoration(color: Color(note.color)),
+          decoration: BoxDecoration(
+              color: Color(note.color),
+              borderRadius: BorderRadius.circular(16)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
@@ -39,15 +42,18 @@ class CustomNoteitem extends StatelessWidget {
                   style: const TextStyle(fontSize: 24, color: Colors.black38),
                 ),
                 trailing: IconButton(
-                    onPressed: () {
-                      note.delete();
-                      BlocProvider.of<NotesCubit>(context).fetchAllnotes();
-                    },
-                    icon: const Icon(
-                      Icons.delete_sweep,
-                      size: 30,
-                      color: Colors.black,
-                    )),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text("Delete Note Done ")));
+                    note.delete();
+                    BlocProvider.of<NotesCubit>(context).fetchAllnotes();
+                  },
+                  icon: const Icon(
+                    Icons.delete_sweep,
+                    size: 30,
+                    color: Colors.black,
+                  ),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 24, right: 16),

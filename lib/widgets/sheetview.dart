@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:note_app/Cubits/addNote_cubit/addnote_cubit.dart';
-import 'package:note_app/Cubits/notes_cubit/notes_cubit.dart';
+
 import 'package:note_app/widgets/formview.dart';
 
 class Sheetview extends StatelessWidget {
@@ -21,6 +21,8 @@ class Sheetview extends StatelessWidget {
         child: BlocConsumer<AddnoteCubit, AddnoteState>(
           listener: (context, state) {
             if (state is AddnoteSucsses) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text('Add note Done <3')));
               Navigator.pop(context);
             }
             if (state is AddnoteFailure) {
